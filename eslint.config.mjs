@@ -4,19 +4,28 @@ import globals from "globals";
 import pluginReact from "eslint-plugin-react";
 
 export default [
+  // Include the recommended config directly in the array
+  js.configs.recommended,
+  
+  // React config
+  pluginReact.configs.flat.recommended,
+  
+  // Your custom configuration
   {
     files: ["**/*.{js,mjs,cjs,jsx}"],
-    plugins: {
-      js: js
-    },
-    extends: ["js/recommended"],
     languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
       globals: {
         ...globals.browser,
-        ...globals.node, // Add node globals if needed
-        ...globals.jest  // Add jest globals if needed
+        ...globals.node,
+        ...globals.jest,
+        // Add any other globals you need
       }
+    },
+    rules: {
+      // Add your custom rules here
+      // "rule-name": "error" | "warn" | "off"
     }
-  },
-  pluginReact.configs.flat.recommended
+  }
 ];
